@@ -1,8 +1,9 @@
-# Kuaför Randevu Sistemi
+<div align="center">
 
-Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin tüm operasyonlarını tek panelden yönetmesini sağlayan tam kapsamlı web uygulaması.
+# ✂️ Kuaför Randevu Sistemi
 
-## Teknoloji Yığını
+Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin  
+tüm operasyonlarını tek panelden yönetmesini sağlayan tam kapsamlı web uygulaması.
 
 ![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
@@ -11,33 +12,79 @@ Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin tüm o
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
 ![Apache](https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=apache&logoColor=white)
 
+</div>
+
+---
+
+## İçindekiler
+
+- [Özellikler](#özellikler)
+- [Ekran Görüntüleri](#ekran-görüntüleri)
+- [Kurulum](#kurulum)
+- [Kullanıcı Rolleri](#kullanıcı-rolleri)
+- [Randevu Akışı](#randevu-akışı)
+- [Proje Yapısı](#proje-yapısı)
+- [Veritabanı](#veritabanı)
+- [Güvenlik](#güvenlik)
+
+---
+
+## Özellikler
+
+| | Özellik | Açıklama |
+|---|---------|---------|
+| 🗓️ | **4 Adımlı Randevu Wizard** | Hizmet → Personel → Tarih/Saat → Bilgiler |
+| ⚡ | **Anlık Slot Hesaplama** | 15 dk aralıklı, çakışma kontrolü |
+| 🔄 | **Durum Yönetimi** | Randevu state machine ile geçiş kuralları |
+| 🚶 | **Walk-in Randevu** | Admin panelinden hesapsız müşteri girişi |
+| 💳 | **Ödeme & İade** | Nakit / kart / havale, iade sistemi |
+| 👤 | **Müşteri Hesabı** | Kayıt, giriş, profil ve şifre yönetimi |
+| 📊 | **Admin Raporlama** | Hizmet, personel ve aylık trend raporları |
+| 🔐 | **Rol Tabanlı Erişim** | Admin / Personel / Müşteri katmanları |
+
+---
+
+## Ekran Görüntüleri
+
+<div align="center">
+
+| Ana Sayfa | Randevu Wizard | Admin Panel |
+|-----------|---------------|-------------|
+| *(eklenecek)* | *(eklenecek)* | *(eklenecek)* |
+
+</div>
+
+---
+
 ## Kurulum
 
-### 1. Gereksinimler
+### Gereksinimler
 - XAMPP (PHP 8.2+, Apache, MySQL/MariaDB)
 
-### 2. Veritabanı
-phpMyAdmin üzerinden yeni bir veritabanı oluşturun:
+### Adımlar
+
+**1. Veritabanını oluşturun**
 ```sql
-CREATE DATABASE kuafor_randevu_sistemi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE kuafor_randevu_sistemi
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 ```
 Ardından `database/kuafor_randevu_sistemi.sql` dosyasını import edin.
 
-### 3. Veritabanı Bağlantısı
+**2. Veritabanı bağlantısını yapılandırın**
 ```bash
 cp backend/config/database.example.php backend/config/database.php
 ```
-`database.php` dosyasını açıp kendi bağlantı bilgilerinizi girin (`host`, `port`, `user`, `pass`).
+`database.php` dosyasında `host`, `port`, `user`, `pass` değerlerini güncelleyin.
 
-### 4. Çalıştırma
-Projeyi XAMPP'ın `htdocs` klasörüne koyun ve tarayıcıda açın:
+**3. Projeyi başlatın**
+
+Klasörü XAMPP `htdocs` dizinine koyun ve tarayıcıda açın:
 ```
 http://localhost/kuafor-randevu-sistemi/
 ```
 
-## Giriş Bilgileri (Demo)
-
-SQL dump ile gelen demo hesaplar:
+### Demo Girişi
 
 | Rol | URL | E-posta |
 |-----|-----|---------|
@@ -46,53 +93,101 @@ SQL dump ile gelen demo hesaplar:
 
 > Demo şifresi SQL dump içindedir. Kurulumdan sonra değiştirmeniz önerilir.
 
+---
+
 ## Kullanıcı Rolleri
 
-| Rol | Yetkiler |
-|-----|---------|
-| **Admin** | Tam kontrol: tüm CRUD, raporlar, kullanıcı yönetimi |
-| **Personel** | Randevular, müşteriler, ödemeler (yazma kısıtlı) |
-| **Müşteri** | Randevu al, görüntüle, iptal et, profil yönet |
+| Rol | Yetki Kapsamı |
+|-----|--------------|
+| 👑 **Admin** | Tam kontrol: tüm CRUD, raporlar, kullanıcı yönetimi |
+| 💼 **Personel** | Randevular, müşteriler, ödemeler (yazma kısıtlı) |
+| 🙍 **Müşteri** | Randevu al, görüntüle, iptal et, profil yönet |
 
-## Özellikler
+---
 
-- 4 adımlı randevu wizard (hizmet → personel → tarih/saat → bilgiler)
-- Anlık slot hesaplama (15 dk aralık, çakışma kontrolü)
-- Randevu durum yönetimi (beklemede → onaylandi → tamamlandi)
-- Walk-in randevu (admin panelinden hesapsız müşteri)
-- Ödeme takibi ve iade sistemi
-- Müşteri web hesabı (kayıt / giriş / profil / şifre)
-- Admin raporlama (hizmet, personel, aylık trend)
-- Rol tabanlı erişim kontrolü (admin / personel / müşteri)
+## Randevu Akışı
+
+### Müşteri Randevu Süreci
+```
+① Hizmet Seç  ──►  ② Personel Seç  ──►  ③ Tarih & Saat  ──►  ④ Bilgiler  ──►  ✅ Onay
+```
+
+### Randevu Durum Matrisi
+```
+             ┌──────────────┐
+             │  beklemede   │
+             └──────┬───────┘
+            onaylandı│  iptal
+       ┌─────────────▼──────────────┐
+       │         onaylandi          │
+       └──┬──────────┬──────────────┘
+ tamamlandı│     gelmedi│       iptal│
+           ▼           ▼            ▼
+      tamamlandi    gelmedi        iptal
+       (final)      (final)       (final)
+```
+
+### Ödeme Akışı
+```
+bekliyor  ──►  odendi  ──►  iade
+    │
+    └──►  iptal
+```
+
+---
 
 ## Proje Yapısı
 
 ```
 kuafor-randevu-sistemi/
 ├── backend/
-│   ├── api/genel/          # Herkese açık endpoint'ler
-│   ├── api/musteri/        # Müşteri hesabı endpoint'leri
-│   ├── api/yonetim/        # Admin panel endpoint'leri
+│   ├── api/
+│   │   ├── genel/          # Herkese açık endpoint'ler (5)
+│   │   ├── musteri/        # Müşteri hesabı endpoint'leri (8)
+│   │   └── yonetim/        # Admin panel endpoint'leri (38+)
 │   ├── config/             # Uygulama ve veritabanı ayarları
-│   ├── core/               # Auth, Validator, RandevuServisi, ...
+│   ├── core/               # Auth, Validator, RandevuServisi
 │   └── middleware/         # Yetki kontrol katmanları
 ├── frontend/
 │   ├── index.html          # Ana sayfa
 │   ├── randevu-al.html     # Randevu wizard
-│   ├── admin/              # Admin panel sayfaları
-│   └── assets/             # CSS + JS modülleri
+│   ├── admin/              # Admin panel sayfaları (10)
+│   └── assets/             # CSS token sistemi + JS modülleri
 └── database/
     └── kuafor_randevu_sistemi.sql
 ```
 
-## Veritabanı Tabloları
+---
 
-`kullanicilar` · `musteri_hesaplari` · `personeller` · `hizmetler` · `personel_hizmetleri` · `calisma_saatleri` · `musteriler` · `randevular` · `randevu_hizmetleri` · `odemeler`
+## Veritabanı
+
+**10 tablo · MariaDB 10.4 · utf8mb4**
+
+| Tablo | Açıklama |
+|-------|---------|
+| `kullanicilar` | Admin / personel panel hesapları |
+| `musteri_hesaplari` | Müşteri web oturum hesapları |
+| `personeller` | Hizmet veren kuaför personeli |
+| `hizmetler` | Hizmet kataloğu (fiyat, süre, kategori) |
+| `personel_hizmetleri` | Personel–hizmet atamaları |
+| `calisma_saatleri` | Haftalık çalışma programı |
+| `musteriler` | Randevu snapshot müşteri verisi |
+| `randevular` | Ana randevu kayıtları |
+| `randevu_hizmetleri` | Hizmet fiyat/süre snapshot'ları |
+| `odemeler` | Randevuya bağlı ödeme kayıtları |
+
+> Snapshot mantığı: Her randevu için müşteri ve hizmet verisi ayrı saklanır.  
+> Fiyat/bilgi değişikliği geçmiş randevuları etkilemez.
+
+---
 
 ## Güvenlik
 
-- PDO prepared statements (SQL injection koruması)
-- Session tabanlı auth (HttpOnly + SameSite)
-- 3 ayrı auth katmanı (genel / müşteri / admin)
-- Input validation her endpoint'te
-- XSS koruması (`_esc()` ile output encoding)
+| Tedbir | Uygulama |
+|--------|---------|
+| SQL Injection | PDO prepared statements |
+| XSS | `_esc()` ile output encoding |
+| Session Fixation | `session_regenerate_id(true)` |
+| Auth Katmanları | 3 ayrı middleware (genel / müşteri / admin) |
+| Input Validation | `Validator::check()` her endpoint'te |
+| CORS | Whitelist tabanlı origin kontrolü |
