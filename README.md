@@ -96,7 +96,7 @@ http://localhost/kuafor-randevu-sistemi/
 
 | Rol | URL | E-posta | Şifre |
 |-----|-----|---------|-------|
-| Admin | `/frontend/admin/giris.html` | `admin@kuafor.local` | `YOUR_ADMIN_PASSWORD` |
+| Admin | `/frontend/admin/giris.html` | `admin@kuafor.local` | `Admin3450` |
 | Müşteri | `/frontend/musteri-giris.html` | Kayıt gerekli | — |
 
 > Kurulumdan sonra admin şifresini değiştirmeniz önerilir.
