@@ -69,7 +69,13 @@ CREATE DATABASE kuafor_randevu_sistemi
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 ```
-Ardından `database/kuafor_randevu_sistemi.sql` dosyasını import edin.
+
+Ardından ihtiyacınıza göre aşağıdaki SQL dosyalarından birini import edin:
+
+| Dosya | İçerik | Ne zaman kullanılır? |
+|-------|--------|----------------------|
+| `kuafor_randevu_sistemi.sql` | Şema + demo veriler | Sistemi hazır veriyle görmek için |
+| `kuafor_randevu_sistemi_sema.sql` | Yalnızca şema | Temiz kurulum, kendi verilerinizi girecekseniz |
 
 **2. Veritabanı bağlantısını yapılandırın**
 ```bash
@@ -86,12 +92,14 @@ http://localhost/kuafor-randevu-sistemi/
 
 ### Demo Girişi
 
-| Rol | URL | E-posta |
-|-----|-----|---------|
-| Admin | `/frontend/admin/giris.html` | `admin@kuafor.local` |
-| Müşteri | `/frontend/musteri-giris.html` | Kayıt gerekli |
+> ⚠️ Yalnızca demo verili SQL (`kuafor_randevu_sistemi.sql`) import edildiğinde geçerlidir.
 
-> Demo şifresi SQL dump içindedir. Kurulumdan sonra değiştirmeniz önerilir.
+| Rol | URL | E-posta | Şifre |
+|-----|-----|---------|-------|
+| Admin | `/frontend/admin/giris.html` | `admin@kuafor.local` | `YOUR_ADMIN_PASSWORD` |
+| Müşteri | `/frontend/musteri-giris.html` | Kayıt gerekli | — |
+
+> Kurulumdan sonra admin şifresini değiştirmeniz önerilir.
 
 ---
 
