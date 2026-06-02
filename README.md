@@ -4,12 +4,12 @@ Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin tüm o
 
 ## Teknoloji Yığını
 
-| Katman | Teknoloji |
-|--------|-----------|
-| Backend | PHP 8.2 · PDO |
-| Frontend | Vanilla JS (ES6) · HTML5 · CSS3 |
-| Veritabanı | MariaDB / MySQL |
-| Sunucu | Apache (XAMPP) |
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+![Apache](https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=apache&logoColor=white)
 
 ## Kurulum
 
