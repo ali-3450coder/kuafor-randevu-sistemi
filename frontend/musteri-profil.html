@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profilim — Kuaför Randevu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/forms.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <style>
+    .appt-nav {
+      background: rgba(10,10,10,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 var(--space-6); height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: var(--z-sticky);
+    }
+    .appt-nav__logo {
+      font-family: var(--font-heading); font-size: var(--font-size-lg);
+      color: var(--color-gold); text-decoration: none;
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .appt-nav__links { display: flex; align-items: center; gap: var(--space-4); }
+    .appt-nav__links a {
+      font-size: var(--font-size-sm); color: var(--color-text-2);
+      text-decoration: none; transition: color var(--transition-fast);
+    }
+    .appt-nav__links a:hover, .appt-nav__links a.is-active { color: var(--color-gold); }
+    .page-wrap { max-width: 620px; margin: 0 auto; padding: var(--space-8) var(--space-6); }
+    .page-title { font-family: var(--font-heading); font-size: var(--font-size-2xl); color: var(--color-text); margin-bottom: var(--space-8); }
+    .section-title {
+      font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);
+      color: var(--color-text-3); text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: var(--space-4); margin-top: var(--space-8);
+    }
+    .section-title:first-of-type { margin-top: 0; }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: var(--font-size-sm); padding-block: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .info-row__label { color: var(--color-text-3); }
+    .info-row__val   { color: var(--color-text); font-weight: var(--font-weight-medium); }
+  </style>
+</head>
+<body>
+
+<nav class="appt-nav" aria-label="Sayfa navigasyonu">
+  <a href="index.html" class="appt-nav__logo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+    KuaförRandevu
+  </a>
+  <div class="appt-nav__links">
+    <a href="randevularim.html">Randevularım</a>
+    <a href="musteri-profil.html" class="is-active">Profilim</a>
+    <button class="btn btn-ghost btn-sm" id="btn-cikis">Çıkış</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <h1 class="page-title">Profilim</h1>
+
+  <!-- Hesap Bilgileri -->
+  <div class="section-title">Hesap Bilgileri</div>
+  <div class="card" style="padding:var(--space-5);" id="profil-bilgi">
+    <div class="loading-row"><span class="spinner"></span><span>Yükleniyor…</span></div>
+  </div>
+
+  <!-- Bilgi Duzenle -->
+  <div class="section-title">Bilgileri Düzenle</div>
+  <div class="card" style="padding:var(--space-5);">
+    <form id="profil-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="prf-ad">Ad Soyad <span class="required-mark" aria-hidden="true">*</span></label>
+        <input type="text" class="input" id="prf-ad" autocomplete="name">
+        <span class="form-error" id="prf-ad-err"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="prf-email">E-posta <span style="font-weight:400;color:var(--color-text-3);">(opsiyonel)</span></label>
+        <input type="email" class="input" id="prf-email" autocomplete="email">
+        <span class="form-error" id="prf-email-err"></span>
+      </div>
+      <button type="submit" class="btn btn-primary" id="btn-profil-kaydet">Kaydet</button>
+    </form>
+  </div>
+
+  <!-- Sifre Degistir -->
+  <div class="section-title">Şifre Değiştir</div>
+  <div class="card" style="padding:var(--space-5);">
+    <form id="sifre-form" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="prf-eski-sifre">Mevcut Şifre <span class="required-mark" aria-hidden="true">*</span></label>
+        <input type="password" class="input" id="prf-eski-sifre" autocomplete="current-password">
+        <span class="form-error" id="prf-eski-sifre-err"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="prf-yeni-sifre">Yeni Şifre <span class="required-mark" aria-hidden="true">*</span></label>
+        <input type="password" class="input" id="prf-yeni-sifre" placeholder="En az 6 karakter" autocomplete="new-password">
+        <span class="form-error" id="prf-yeni-sifre-err"></span>
+      </div>
+      <button type="submit" class="btn btn-primary" id="btn-sifre-kaydet">Şifreyi Güncelle</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/validation.js"></script>
+<script src="assets/js/musteri-profil.js"></script>
+</body>
+</html>

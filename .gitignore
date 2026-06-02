@@ -1,0 +1,14 @@
+# Veritabani baglanti bilgileri — kendi database.php'nizi olusturun
+backend/config/database.php
+
+# Log dosyalari
+backend/loglar/*.log
+
+# Sistem dosyalari
+.DS_Store
+Thumbs.db
+
+# Editor klasorleri
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,221 @@
+/* ===============================================================
+   RESPONSIVE — 1280 / 1024 / 768 / 480
+   =============================================================== */
+
+/* ---- 1280px ---- */
+@media (max-width: 1280px) {
+  :root {
+    --sidebar-width: 220px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .admin-main {
+    padding: var(--space-6);
+  }
+}
+
+/* ---- 1024px ---- */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 200px;
+  }
+
+  .container {
+    padding-inline: var(--space-5);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); }
+  h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+}
+
+/* ---- 768px — Sidebar drawer olarak saklanir ---- */
+@media (max-width: 768px) {
+  /* Layout: sidebar alandan cikar, topbar full width */
+  .admin-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--topbar-height) 1fr;
+    grid-template-areas:
+      "topbar"
+      "main";
+  }
+
+  /* Sidebar fixed drawer */
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    transform: translateX(-100%);
+    transition: transform var(--transition-base);
+    z-index: var(--z-sidebar);
+    box-shadow: var(--shadow-lg);
+  }
+  .admin-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  /* Hamburger goster */
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  /* Sidebar icerisindeki kapatma butonu */
+  .sidebar-close {
+    display: flex;
+  }
+
+  /* Main */
+  .admin-main {
+    padding: var(--space-5);
+  }
+
+  /* Modal icerigi tam genislik */
+  .modal-overlay {
+    padding: var(--space-3);
+    align-items: flex-end;
+  }
+  .modal {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    max-height: 92vh;
+    animation: modal-slide-up 0.25s ease;
+  }
+  @keyframes modal-slide-up {
+    from { transform: translateY(60px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  /* Filter bar dikey */
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-bar .form-group {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Toast */
+  #toast-container {
+    right: var(--space-3);
+    left: var(--space-3);
+    bottom: var(--space-4);
+    max-width: none;
+  }
+
+  /* Page header dikey */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Metrics grid 2 sutun */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Table: yatay kaydirma */
+  .table-wrapper {
+    border-radius: var(--radius-md);
+  }
+
+  /* Hours grid mobil */
+  .hours-grid {
+    grid-template-columns: 90px 1fr 1fr 60px;
+    gap: var(--space-2);
+  }
+}
+
+/* ---- 480px ---- */
+@media (max-width: 480px) {
+  :root {
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-xl:  1.25rem;
+  }
+
+  .container {
+    padding-inline: var(--space-4);
+  }
+
+  .admin-main {
+    padding: var(--space-4);
+  }
+
+  .card {
+    padding: var(--space-4);
+  }
+
+  .btn-lg {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .metric-card {
+    padding: var(--space-4);
+  }
+
+  .metric-card__value {
+    font-size: var(--font-size-xl);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+
+  .modal {
+    padding: var(--space-5);
+  }
+
+  .modal__footer {
+    flex-direction: column;
+  }
+  .modal__footer .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tabs {
+    gap: 0;
+  }
+  .tab-btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-xs);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header__actions {
+    width: 100%;
+  }
+  .page-header__actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .hours-grid {
+    grid-template-columns: 80px 1fr 1fr 50px;
+    font-size: var(--font-size-xs);
+  }
+}

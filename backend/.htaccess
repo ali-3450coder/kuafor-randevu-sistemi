@@ -1,0 +1,15 @@
+# Block direct HTTP access to sensitive directories.
+# api/ is intentionally excluded so endpoints remain reachable.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^config(/.*)?$     - [F,L]
+    RewriteRule ^core(/.*)?$       - [F,L]
+    RewriteRule ^loglar(/.*)?$     - [F,L]
+    RewriteRule ^middleware(/.*)?$ - [F,L]
+    RewriteRule ^testler(/.*)?$    - [F,L]
+</IfModule>
+
+# Apache 2.4 ek guvenlik: mod_rewrite devre disi olsa bile erisimi kes.
+# Her hassas dizinde ayri .htaccess ile "Require all denied" tanimlidir.

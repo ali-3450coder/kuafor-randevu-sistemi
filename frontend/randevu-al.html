@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Randevu Al — Kuaför Randevu Sistemi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/forms.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <style>
+    /* ---- Sayfa nav ---- */
+    .appt-nav {
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 var(--space-6);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: var(--z-sticky);
+    }
+    .appt-nav__logo {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-lg);
+      color: var(--color-gold);
+      text-decoration: none;
+    }
+
+    /* ---- Ana layout ---- */
+    .appt-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-6);
+    }
+    .appt-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    /* ---- Progress ---- */
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: var(--space-8);
+      overflow: hidden;
+    }
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex: 1;
+    }
+    .progress-step__num {
+      width: 2rem; height: 2rem;
+      border-radius: 50%;
+      border: 2px solid var(--color-border-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-3);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+      transition: border-color var(--transition-base), background var(--transition-base), color var(--transition-base);
+    }
+    .progress-step__label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-3);
+      white-space: nowrap;
+      transition: color var(--transition-base);
+    }
+    .progress-step__line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+      margin: 0 var(--space-3);
+      transition: background var(--transition-base);
+    }
+    .progress-step.is-active .progress-step__num {
+      border-color: var(--color-gold);
+      background: var(--color-gold);
+      color: #0d0d0d;
+    }
+    .progress-step.is-active .progress-step__label { color: var(--color-gold); }
+    .progress-step.is-done .progress-step__num {
+      border-color: var(--color-success);
+      background: var(--color-success);
+      color: #fff;
+    }
+    .progress-step.is-done .progress-step__label { color: var(--color-success); }
+    .progress-step.is-done .progress-step__line   { background: var(--color-success); }
+
+    /* ---- Adim bolumu ---- */
+    .step-section { display: none; }
+    .step-section.is-active { display: block; }
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-xl);
+      color: var(--color-text);
+      margin-bottom: var(--space-2);
+    }
+    .step-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-2);
+      margin-bottom: var(--space-6);
+      font-family: var(--font-body);
+    }
+    .step-nav {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-border);
+    }
+    .step-nav .btn-ghost { margin-right: auto; }
+
+    /* ---- Hizmet secim grid ---- */
+    .hizmet-sec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: var(--space-3);
+    }
+
+    /* ---- Personel secim grid ---- */
+    .personel-sec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: var(--space-3);
+    }
+    .personel-sec-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-5);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast);
+      background: var(--color-surface);
+      text-align: center;
+    }
+    .personel-sec-btn:hover {
+      border-color: var(--color-gold);
+      background: rgba(201,169,97,0.04);
+    }
+    .personel-sec-btn.is-selected {
+      border-color: var(--color-gold);
+      background: rgba(201,169,97,0.08);
+    }
+    .personel-sec-btn .avatar {
+      width: 3.5rem; height: 3.5rem;
+      font-size: var(--font-size-md);
+      font-weight: 700;
+      background: var(--color-surface-2);
+    }
+    .personel-sec-btn__ad {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text);
+    }
+    .personel-sec-btn__unvan {
+      font-size: var(--font-size-xs);
+      color: var(--color-gold);
+    }
+
+    /* ---- Slot ---- */
+    .slot-tabs { margin-bottom: var(--space-5); }
+    .slot-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+    }
+    .slot-btn {
+      font-family: var(--font-mono);
+      font-size: var(--font-size-sm);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border-2);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      background: var(--color-surface);
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+    }
+    .slot-btn:hover {
+      border-color: var(--color-gold);
+      background: rgba(201,169,97,0.05);
+    }
+    .slot-btn.is-selected {
+      border-color: var(--color-gold);
+      background: var(--color-gold);
+      color: #0d0d0d;
+      font-weight: var(--font-weight-bold);
+    }
+    .slot-group-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: var(--space-3);
+      margin-top: var(--space-4);
+    }
+    .slot-group-label:first-child { margin-top: 0; }
+
+    /* ---- Ozet karti ---- */
+    .appt-summary {
+      position: sticky;
+      top: 76px;
+    }
+    .ozet-karti { padding: var(--space-5); }
+    .ozet-karti__baslik {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-4);
+    }
+    .ozet-satir {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--font-size-sm);
+      padding-block: var(--space-2);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .ozet-satir:last-of-type { border-bottom: none; }
+    .ozet-satir__etiket { color: var(--color-text-3); flex-shrink: 0; }
+    .ozet-satir__deger  { color: var(--color-text); text-align: right; font-weight: var(--font-weight-medium); }
+    .ozet-hizmetler { list-style: none; margin: var(--space-2) 0; }
+    .ozet-hizmetler li {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-2);
+      padding-block: 2px;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+    .ozet-toplam {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 2px solid var(--color-gold);
+    }
+    .ozet-toplam__etiket { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-2); }
+    .ozet-toplam__tutar  { font-family: var(--font-mono); font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); color: var(--color-gold); }
+    .ozet-bos { font-size: var(--font-size-sm); color: var(--color-text-3); text-align: center; padding: var(--space-6) 0; }
+
+    /* ---- Basari ekrani ---- */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: var(--space-10) var(--space-8);
+      max-width: 560px;
+      margin: var(--space-8) auto;
+    }
+    .success-screen.is-visible { display: block; }
+    .success-icon {
+      width: 5rem; height: 5rem;
+      border-radius: 50%;
+      background: var(--color-success-bg);
+      border: 2px solid var(--color-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-success);
+      margin: 0 auto var(--space-6);
+    }
+    .success-title {
+      font-size: var(--font-size-2xl);
+      color: var(--color-text);
+      margin-bottom: var(--space-3);
+    }
+    .success-actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: center;
+      margin-top: var(--space-8);
+      flex-wrap: wrap;
+    }
+
+    /* ---- Uyari mesaji ---- */
+    .info-box {
+      background: rgba(74,158,222,0.08);
+      border: 1px solid rgba(74,158,222,0.25);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      font-size: var(--font-size-sm);
+      color: var(--color-info);
+      margin-bottom: var(--space-5);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .appt-layout {
+        grid-template-columns: 1fr;
+      }
+      .appt-summary {
+        position: static;
+        order: -1;
+      }
+    }
+    @media (max-width: 480px) {
+      .appt-wrap { padding: var(--space-5) var(--space-4); }
+      .hizmet-sec-grid { grid-template-columns: 1fr; }
+      .personel-sec-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="appt-nav" aria-label="Sayfa navigasyonu">
+  <a href="index.html" class="appt-nav__logo"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:4px;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>KuaförRandevu</a>
+  <a href="randevularim.html" class="btn btn-ghost btn-sm">Randevularım</a>
+</nav>
+
+<div class="appt-wrap">
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progressBar" role="progressbar" aria-label="Adım ilerleyişi">
+    <div class="progress-step is-active" id="prog-1">
+      <div class="progress-step__num">1</div>
+      <div class="progress-step__label">Hizmet</div>
+    </div>
+    <div class="progress-step__line" id="line-1"></div>
+    <div class="progress-step" id="prog-2">
+      <div class="progress-step__num">2</div>
+      <div class="progress-step__label">Personel</div>
+    </div>
+    <div class="progress-step__line" id="line-2"></div>
+    <div class="progress-step" id="prog-3">
+      <div class="progress-step__num">3</div>
+      <div class="progress-step__label">Tarih &amp; Saat</div>
+    </div>
+    <div class="progress-step__line" id="line-3"></div>
+    <div class="progress-step" id="prog-4">
+      <div class="progress-step__num">4</div>
+      <div class="progress-step__label">Bilgileriniz</div>
+    </div>
+  </div>
+
+  <!-- Basari ekrani (wizard disinda) -->
+  <div class="success-screen" id="successScreen" role="region" aria-label="Randevu onayı">
+    <!-- JS tarafından doldurulur -->
+  </div>
+
+  <!-- Wizard layout -->
+  <div class="appt-layout" id="apptLayout">
+
+    <!-- Sol: adimlar -->
+    <div id="appt-content">
+
+      <!-- ADIM 1: Hizmet -->
+      <section class="step-section is-active" id="step-1" aria-labelledby="step1-baslik">
+        <h2 class="step-title" id="step1-baslik">Hizmet Seçin</h2>
+        <p class="step-subtitle">Almak istediğiniz bir veya birden fazla hizmet seçin.</p>
+
+        <div class="hizmet-tablar-wrap" style="margin-bottom:var(--space-5);">
+          <div class="tabs" id="hizmet-tablar-sec" role="tablist" aria-label="Hizmet kategorileri"></div>
+        </div>
+        <div id="hizmet-sec-container" aria-live="polite">
+          <!-- JS doldurur -->
+        </div>
+
+        <div class="step-nav">
+          <a href="index.html" class="btn btn-ghost">← Ana Sayfa</a>
+          <button class="btn btn-primary" id="btn-adim1-ileri" disabled>
+            Devam Et →
+          </button>
+        </div>
+      </section>
+
+      <!-- ADIM 2: Personel -->
+      <section class="step-section" id="step-2" aria-labelledby="step2-baslik">
+        <h2 class="step-title" id="step2-baslik">Personel Seçin</h2>
+        <p class="step-subtitle">Seçtiğiniz hizmetleri verebilecek uzmanlarımızdan birini seçin.</p>
+        <div id="personel-sec-container" aria-live="polite">
+          <!-- JS doldurur -->
+        </div>
+        <div class="step-nav">
+          <button class="btn btn-ghost" id="btn-adim2-geri">← Geri</button>
+          <button class="btn btn-primary" id="btn-adim2-ileri" disabled>
+            Devam Et →
+          </button>
+        </div>
+      </section>
+
+      <!-- ADIM 3: Tarih + Saat -->
+      <section class="step-section" id="step-3" aria-labelledby="step3-baslik">
+        <h2 class="step-title" id="step3-baslik">Tarih &amp; Saat Seçin</h2>
+        <p class="step-subtitle">Uygun bir tarih seçin, ardından müsait saatlerden birini belirleyin.</p>
+
+        <div class="form-group" style="max-width:280px;">
+          <label class="form-label" for="tarih-input">Randevu Tarihi <span class="required-mark" aria-hidden="true">*</span></label>
+          <input type="date" class="input" id="tarih-input" autocomplete="off">
+          <span class="form-error" id="tarih-error"></span>
+        </div>
+
+        <div id="slot-container" aria-live="polite">
+          <!-- Tarih secilince JS doldurur -->
+        </div>
+
+        <div class="step-nav">
+          <button class="btn btn-ghost" id="btn-adim3-geri">← Geri</button>
+          <button class="btn btn-primary" id="btn-adim3-ileri" disabled>
+            Devam Et →
+          </button>
+        </div>
+      </section>
+
+      <!-- ADIM 4: Kisisel bilgiler -->
+      <section class="step-section" id="step-4" aria-labelledby="step4-baslik">
+        <h2 class="step-title" id="step4-baslik">Kişisel Bilgileriniz</h2>
+        <p class="step-subtitle">Randevunuzu oluşturmak için bilgilerinizi girin.</p>
+
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="ad-soyad-input">Ad Soyad <span class="required-mark" aria-hidden="true">*</span></label>
+              <input type="text" class="input" id="ad-soyad-input" placeholder="Ad Soyad" autocomplete="name">
+              <span class="form-error" id="ad-soyad-error"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="telefon-input">Telefon <span class="required-mark" aria-hidden="true">*</span></label>
+              <input type="tel" class="input" id="telefon-input" placeholder="0555 555 55 55" inputmode="numeric" autocomplete="tel">
+              <span class="form-error" id="telefon-error"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email-input">E-posta <span style="font-weight:400;color:var(--color-text-3);">(opsiyonel)</span></label>
+            <input type="email" class="input" id="email-input" placeholder="ornek@mail.com" autocomplete="email">
+            <span class="form-error" id="email-error"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="notlar-input">Notlar <span style="font-weight:400;color:var(--color-text-3);">(opsiyonel)</span></label>
+            <textarea class="input" id="notlar-input" placeholder="Varsa özel isteklerinizi belirtin..." rows="3"></textarea>
+          </div>
+        </form>
+
+        <div class="step-nav">
+          <button class="btn btn-ghost" id="btn-adim4-geri">← Geri</button>
+          <button class="btn btn-primary" id="btn-randevu-al" type="button">
+            Randevu Oluştur
+          </button>
+        </div>
+      </section>
+
+    </div><!-- /appt-content -->
+
+    <!-- Sag: Ozet karti -->
+    <aside class="appt-summary" id="appt-summary-wrapper" aria-label="Randevu özeti">
+      <div class="card ozet-karti">
+        <div class="ozet-karti__baslik"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:5px;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>Randevu Özeti</div>
+        <div id="ozet-icerik">
+          <div class="ozet-bos">Henüz seçim yapılmadı.</div>
+        </div>
+      </div>
+    </aside>
+
+  </div><!-- /appt-layout -->
+
+</div><!-- /appt-wrap -->
+
+<div id="toast-container"></div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/icons.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/ui.js"></script>
+<script src="assets/js/validation.js"></script>
+<script src="assets/js/mask.js"></script>
+<script src="assets/js/appointment.js"></script>
+</body>
+</html>

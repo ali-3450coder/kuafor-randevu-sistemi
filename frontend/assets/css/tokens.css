@@ -1,0 +1,139 @@
+/* ===============================================================
+   DESIGN TOKENS — Kuafor Randevu Sistemi
+   Public tema: koyu zemin + altin vurgu (premium barber)
+   Admin tema : [data-theme="light"] override
+   =============================================================== */
+:root {
+  /* ---- Renk Paleti (Koyu / Public) ---- */
+  --color-bg: #080809;
+  --color-bg-2: #0d0d0f;
+  --color-bg-3: #161618;
+  --color-surface: #1e1e21;
+  --color-surface-2: #28282c;
+  --color-border: #333337;
+  --color-border-2: #404044;
+
+  --color-text: #eceae4;
+  --color-text-2: #9a9890;
+  --color-text-3: #606060;
+
+  /* Altin vurgu */
+  --color-gold: #c88833;
+  --color-gold-light: #D9AE72;
+  --color-gold-dark: #A07840;
+
+  --color-primary: var(--color-gold);
+  --color-primary-hover: var(--color-gold-light);
+
+  /* Durum renkleri */
+  --color-warning: #f0a830;
+  --color-warning-bg: rgba(240, 168, 48, 0.12);
+  --color-info: #4a9ede;
+  --color-info-bg: rgba(74, 158, 222, 0.12);
+  --color-success: #3dba6f;
+  --color-success-bg: rgba(61, 186, 111, 0.12);
+  --color-danger: #e05454;
+  --color-danger-bg: rgba(224, 84, 84, 0.12);
+  --color-muted: #707070;
+  --color-muted-bg: rgba(112, 112, 112, 0.12);
+
+  /* ---- Tipografi ---- */
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.75rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.15;
+  --line-height-base: 1.65;
+  --line-height-relaxed: 1.85;
+
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.04em;
+  --letter-spacing-wider: 0.08em;
+
+  /* ---- Spacing ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ---- Radius ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ---- Shadow ---- */
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.60);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.70);
+  --shadow-gold: 0 0 24px rgba(196, 148, 85, 0.16);
+
+  /* ---- Transition ---- */
+  --transition-fast: 140ms ease;
+  --transition-base: 240ms ease;
+  --transition-slow: 380ms ease;
+
+  /* ---- Z-index ---- */
+  --z-sticky: 100;
+  --z-sidebar: 90;
+  --z-modal-backdrop: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+
+  /* ---- Layout ---- */
+  --sidebar-width: 248px;
+  --topbar-height: 60px;
+  --container-max: 1200px;
+}
+
+/* ===============================================================
+   ADMIN TEMA — Aydinlik, okuma agirlikli
+   <html data-theme="light"> veya <body data-theme="light">
+   =============================================================== */
+[data-theme="light"] {
+  --color-bg: #f2f1ef;
+  --color-bg-2: #eae9e6;
+  --color-bg-3: #dddbd6;
+  --color-surface: #fafaf8;
+  --color-surface-2: #f3f2ef;
+  --color-border: #dddbd6;
+  --color-border-2: #cac8c2;
+
+  --color-text: #18181a;
+  --color-text-2: #4a4848;
+  --color-text-3: #888680;
+
+  --color-gold: #A07840;
+  --color-gold-light: #C49455;
+  --color-gold-dark: #7A5C28;
+
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.10);
+  --shadow-gold: 0 0 24px rgba(160, 120, 64, 0.10);
+}

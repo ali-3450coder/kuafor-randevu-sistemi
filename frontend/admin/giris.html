@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş — Kuaför Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/forms.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <style>
+    /* ---- Reset body for full-screen split ---- */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ================================================================
+       SPLIT LAYOUT
+       ================================================================ */
+    .auth-split {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    /* ---- Left brand panel ---- */
+    .auth-brand {
+      flex: 0 0 44%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 3.5rem;
+      background: #0c0b09;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle gold radial glow */
+    .auth-brand::before {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -20%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(201,169,97,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .auth-brand::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -10%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(201,169,97,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Brand content sits above overlays */
+    .auth-brand__top,
+    .auth-brand__mid,
+    .auth-brand__bot { position: relative; z-index: 1; }
+
+    .auth-brand__logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #C9A96E;
+    }
+    .auth-brand__logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, #C9A96E, #a8883a);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 4px 20px rgba(168,136,58,0.45), 0 0 0 1px rgba(201,169,97,0.35);
+      color: #fff;
+    }
+    .auth-brand__logo-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #C9A96E;
+      letter-spacing: -0.01em;
+    }
+
+    .auth-brand__mid {
+      padding: 2.5rem 0;
+    }
+    .auth-brand__tagline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: #f2ede6;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .auth-brand__tagline em {
+      font-style: italic;
+      background: linear-gradient(135deg, #dfbf84, #C9A96E, #a8883a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .auth-brand__desc {
+      font-size: 0.95rem;
+      color: #b8b2a8;
+      line-height: 1.75;
+      max-width: 320px;
+      margin-bottom: 2.5rem;
+    }
+
+    .auth-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .auth-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+    .auth-feature__dot {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: rgba(201,169,97,0.22);
+      border: 1px solid rgba(201,169,97,0.50);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+      color: #C9A96E;
+    }
+    .auth-feature__text {
+      font-size: 0.875rem;
+      color: #b8b2a8;
+    }
+
+    .auth-brand__bot {
+      font-size: 0.75rem;
+      color: #6b6560;
+    }
+
+    /* Decorative large scissors */
+    .auth-brand__deco {
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-20deg);
+      width: 280px;
+      height: 280px;
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      color: #c9a961;
+    }
+    .auth-brand__deco svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ---- Right form panel ---- */
+    .auth-form-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #faf9f7;
+      padding: 2.5rem 2rem;
+      position: relative;
+    }
+
+    .auth-form-inner {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .auth-form-header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .auth-form-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C9A96E;
+      margin-bottom: 0.875rem;
+      padding: 0.25rem 0.875rem;
+      background: rgba(201,169,97,0.08);
+      border: 1px solid rgba(201,169,97,0.18);
+      border-radius: 999px;
+    }
+    .auth-form-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1c1a17;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.375rem;
+    }
+    .auth-form-sub {
+      font-size: 0.875rem;
+      color: #4d4840;
+    }
+
+    /* Enhanced inputs */
+    .auth-input-wrap {
+      position: relative;
+    }
+    .auth-input-wrap .auth-input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.45;
+      pointer-events: none;
+      color: inherit;
+    }
+    .auth-input-wrap .input {
+      padding-left: 2.75rem;
+      background: #fff;
+      border-color: #e4e1db;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .auth-input-wrap .input:focus {
+      border-color: #C9A96E;
+      box-shadow: 0 0 0 3px rgba(201,169,97,0.12);
+      outline: none;
+    }
+
+    /* Submit button override */
+    .auth-submit {
+      width: 100%;
+      height: 48px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #C9A96E, #a8883a);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(168,136,58,0.35);
+    }
+    .auth-submit:hover:not(:disabled) {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(168,136,58,0.4);
+    }
+    .auth-submit:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    .auth-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+      color: #8a8278;
+      font-size: 0.75rem;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e4e1db;
+    }
+
+    .auth-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      height: 42px;
+      border: 1.5px solid #e4e1db;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      color: #4d4840;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      background: transparent;
+    }
+    .auth-back:hover {
+      border-color: #C9A96E;
+      color: #C9A96E;
+      background: rgba(201,169,97,0.04);
+    }
+
+    .auth-form-footer {
+      text-align: center;
+      margin-top: 1.75rem;
+      font-size: 0.75rem;
+      color: #8a8278;
+    }
+
+    /* ================================================================
+       RESPONSIVE
+       ================================================================ */
+    @media (max-width: 768px) {
+      .auth-brand { display: none; }
+      .auth-form-panel {
+        background: #faf9f7;
+        padding: 2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <div class="auth-split">
+
+    <!-- ===== LEFT BRAND PANEL ===== -->
+    <div class="auth-brand" aria-hidden="true">
+      <div class="auth-brand__top">
+        <a href="../index.html" class="auth-brand__logo">
+          <span class="auth-brand__logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
+          <span class="auth-brand__logo-text">KuaförYönetim</span>
+        </a>
+      </div>
+
+      <div class="auth-brand__mid">
+        <p class="auth-brand__tagline">
+          Salonunuzu<br><em>Kolayca</em><br>Yönetin
+        </p>
+        <p class="auth-brand__desc">
+          Randevular, müşteriler, personeller ve gelirleriniz —
+          hepsi tek bir yerden, anlık olarak.
+        </p>
+        <div class="auth-features">
+          <div class="auth-feature">
+            <span class="auth-feature__dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg></span>
+            <span class="auth-feature__text">Anlık randevu takibi ve onaylama</span>
+          </div>
+          <div class="auth-feature">
+            <span class="auth-feature__dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="auth-feature__text">Müşteri ve personel yönetimi</span>
+          </div>
+          <div class="auth-feature">
+            <span class="auth-feature__dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></span>
+            <span class="auth-feature__text">Ödeme ve gelir raporları</span>
+          </div>
+          <div class="auth-feature">
+            <span class="auth-feature__dot"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
+            <span class="auth-feature__text">Hizmet ve fiyat düzenlemesi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-brand__bot">
+        &copy; 2026 Kuaför Randevu Sistemi
+      </div>
+
+      <span class="auth-brand__deco"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
+    </div>
+
+    <!-- ===== RIGHT FORM PANEL ===== -->
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+
+        <div class="auth-form-header">
+          <span class="auth-form-eyebrow">Yönetici Erişimi</span>
+          <h1 class="auth-form-title">Giriş Yapın</h1>
+          <p class="auth-form-sub">Hesap bilgilerinizle devam edin</p>
+        </div>
+
+        <form id="giris-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="giris-email">
+              E-posta <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <div class="auth-input-wrap">
+              <span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></span>
+              <input
+                type="email"
+                class="input"
+                id="giris-email"
+                placeholder="admin@kuafor.local"
+                autocomplete="email"
+                inputmode="email"
+              >
+            </div>
+            <span class="form-error" id="giris-email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="giris-sifre">
+              Şifre <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <div class="auth-input-wrap">
+              <span class="auth-input-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <input
+                type="password"
+                class="input"
+                id="giris-sifre"
+                placeholder="••••••••"
+                autocomplete="current-password"
+              >
+            </div>
+            <span class="form-error" id="giris-sifre-error"></span>
+          </div>
+
+          <button
+            type="submit"
+            class="auth-submit"
+            id="btn-giris"
+          >
+            Giriş Yap
+          </button>
+        </form>
+
+        <div class="auth-divider">veya</div>
+
+        <a href="../index.html" class="auth-back">
+          ← Müşteri Sitesine Dön
+        </a>
+
+        <div class="auth-form-footer">
+          Güvenli yönetici girişi &mdash; KRS v1.0
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/api.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/validation.js"></script>
+  <script src="../assets/js/admin/auth.js"></script>
+</body>
+</html>
