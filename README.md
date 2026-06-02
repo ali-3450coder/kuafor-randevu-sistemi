@@ -2,7 +2,7 @@
 
 # ✂️ Kuaför Randevu Sistemi
 
-Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin  
+Müşterilerin çevrimiçi randevu almasını ve kuaför yöneticilerinin
 tüm operasyonlarını tek panelden yönetmesini sağlayan tam kapsamlı web uygulaması.
 
 ![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?style=for-the-badge&logo=php&logoColor=white)
@@ -18,14 +18,21 @@ tüm operasyonlarını tek panelden yönetmesini sağlayan tam kapsamlı web uyg
 
 ## İçindekiler
 
-- [Özellikler](#özellikler)
-- [Ekran Görüntüleri](#ekran-görüntüleri)
-- [Kurulum](#kurulum)
-- [Kullanıcı Rolleri](#kullanıcı-rolleri)
-- [Randevu Akışı](#randevu-akışı)
-- [Proje Yapısı](#proje-yapısı)
-- [Veritabanı](#veritabanı)
-- [Güvenlik](#güvenlik)
+- [✂️ Kuaför Randevu Sistemi](#️-kuaför-randevu-sistemi)
+  - [İçindekiler](#i̇çindekiler)
+  - [Özellikler](#özellikler)
+  - [Kurulum](#kurulum)
+    - [Gereksinimler](#gereksinimler)
+    - [Adımlar](#adımlar)
+    - [Demo Girişi](#demo-girişi)
+  - [Kullanıcı Rolleri](#kullanıcı-rolleri)
+  - [Randevu Akışı](#randevu-akışı)
+    - [Müşteri Randevu Süreci](#müşteri-randevu-süreci)
+    - [Randevu Durum Matrisi](#randevu-durum-matrisi)
+    - [Ödeme Akışı](#ödeme-akışı)
+  - [Proje Yapısı](#proje-yapısı)
+  - [Veritabanı](#veritabanı)
+  - [Güvenlik](#güvenlik)
 
 ---
 
@@ -41,18 +48,6 @@ tüm operasyonlarını tek panelden yönetmesini sağlayan tam kapsamlı web uyg
 | 👤 | **Müşteri Hesabı** | Kayıt, giriş, profil ve şifre yönetimi |
 | 📊 | **Admin Raporlama** | Hizmet, personel ve aylık trend raporları |
 | 🔐 | **Rol Tabanlı Erişim** | Admin / Personel / Müşteri katmanları |
-
----
-
-## Ekran Görüntüleri
-
-<div align="center">
-
-| Ana Sayfa | Randevu Wizard | Admin Panel |
-|-----------|---------------|-------------|
-| *(eklenecek)* | *(eklenecek)* | *(eklenecek)* |
-
-</div>
 
 ---
 
@@ -184,7 +179,7 @@ kuafor-randevu-sistemi/
 | `randevu_hizmetleri` | Hizmet fiyat/süre snapshot'ları |
 | `odemeler` | Randevuya bağlı ödeme kayıtları |
 
-> Snapshot mantığı: Her randevu için müşteri ve hizmet verisi ayrı saklanır.  
+> Snapshot mantığı: Her randevu için müşteri ve hizmet verisi ayrı saklanır.
 > Fiyat/bilgi değişikliği geçmiş randevuları etkilemez.
 
 ---
